@@ -1,4 +1,4 @@
-router.get("/plot-day", async (req, res) => {
+router.get("/product", async (req, res) => {
   try {
     const { startdate, stopdate } = req.query;
 
