@@ -1,6 +1,6 @@
 router.get("/plot-day", async (req, res) => {
   try {
-    const { startdate, stopdate, product, station } = req.query;
+    const { startdate, stopdate } = req.query;
 
     const result = await query(
       `select
@@ -9,10 +9,8 @@ router.get("/plot-day", async (req, res) => {
       public.foxsystem_post_by_day
     where timestamp_group::date >= $1
     and timestamp_group::date <= $2
-    and sendresultdetails_product = $3
-    and sendresultdetails_station_type = $4
     order by timestamp_group asc`,
-      [startdate, stopdate, product, station]
+      [startdate, stopdate]
     );
 
     res.status(200).json(result.rows);
