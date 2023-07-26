@@ -1,0 +1,73 @@
+  const [startDate, setStartDate] = React.useState(null);
+  const [stopDate, setStopDate] = React.useState(null); 
+  const [Datamainapi, setDatamainapi] = React.useState([]); 
+
+const handleStartDateChange = (event) => {
+    setStartDate(event.target.value);
+    console.log(event.target.value);
+  };
+
+  const handleStopDateChange = (event) => {
+    setStopDate(event.target.value);
+    console.log(event.target.value);
+  };
+
+  useEffect(() => {
+    if (selectedProduct) {
+      // Call API here with selectedProcess and selectedProduct
+      // Update datamainapi state with the fetched data
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(
+            `http://10.17.77.111:3001/api/foxsystem_json_backup_header_ok/product`,
+            {
+              params: {
+                startdate: startDate,
+                stopdate: stopDate,
+                product: selectedProduct.sendresultdetails_product,
+              },
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          const data = response.data;
+          console.log(data);
+          setDatamainapi(data);
+        } catch (error) {
+          console.log("Error fetching data from API:", error);
+        }
+      };
+
+      fetchData();
+    }
+  }, [ startDate, stopDate]);
+
+<Item sx={{ mt: 2 }}>
+                <TextField
+                  id="start-date"
+                  label="Start Date"
+                  type="date"
+                  value={startDate}
+                  onChange={handleStartDateChange}
+                  sx={{ width: "100%" }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </Item>
+            </Grid>
+            <Grid xs={2}>
+              <Item sx={{ mt: 2 }}>
+                <TextField
+                  id="stop-date"
+                  label="Stop Date"
+                  type="date"
+                  value={stopDate}
+                  onChange={handleStopDateChange}
+                  sx={{ width: "100%" }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </Item>
