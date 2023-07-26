@@ -24,7 +24,6 @@ const handleStartDateChange = (event) => {
               params: {
                 startdate: startDate,
                 stopdate: stopDate,
-                product: selectedProduct.sendresultdetails_product,
               },
               headers: {
                 "Content-Type": "application/json",
